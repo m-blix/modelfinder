@@ -1,0 +1,7 @@
+{
+  "name": "modelfinder",
+  "version": "0.1",
+  "description": "find 3D models on webpages service",
+  "homepage": "https://github.com/m-blix/modelfinder",
+  "license": "MIT"
+}
