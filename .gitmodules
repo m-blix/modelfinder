@@ -1,0 +1,3 @@
+[submodule "ar-extension"]
+	path = ar-extension
+	url = https://github.com/m-blix/ar-extension.git

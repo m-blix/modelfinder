@@ -1,7 +1,16 @@
 {
   "name": "modelfinder",
-  "version": "0.1",
+  "version": "0.1.0",
   "description": "find 3D models on webpages service",
   "homepage": "https://github.com/m-blix/modelfinder",
-  "license": "MIT"
+  "author": "mkeblx",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/m-blix/modelfinder.git"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
