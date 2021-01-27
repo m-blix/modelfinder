@@ -4,6 +4,7 @@ const port = 8001;
 
 const puppeteer = require('puppeteer');
 
+const detectors = require('./detectors');
 
 app.get('/', (req, res) => {
   res.send('modelfinder');
@@ -13,6 +14,7 @@ app.get('/api', async (req, res) => {
   let url = req.query.url;
 
   let resp = {};
+  let error = false;
 
   if (url) {
     if (!url.startsWith('http')) {
@@ -21,20 +23,28 @@ app.get('/api', async (req, res) => {
 
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
+    try {
+      await page.goto(url);
 
-    await page.goto(url);
+      let title = await page.title();
 
-    let title = await page.title();
-    //await page.screenshot({path: 'example.png'});
+      let modelUrl = await page.evaluate(() => {
+        return 'test.glb';
+      });
 
+      resp = {
+        msg: 'model found',
+        url: modelUrl,
+        title: title
+      };
+    } catch(e) {
+      resp = {
+        msg: 'invalid page'
+      };
+    }
 
     await browser.close();
 
-    resp = {
-      msg: 'model found',
-      url: 'http://site.com/model.glb',
-      title: title
-    };
   } else {
     resp = {
       msg: "'url' parameter not provided"
