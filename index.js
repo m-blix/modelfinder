@@ -4,10 +4,6 @@ const port = 8001;
 
 const puppeteer = require('puppeteer');
 
-app.get('/', (req, res) => {
-  res.send('modelfinder');
-});
-
 app.get('/api', async (req, res) => {
   let url = req.query.url;
 
@@ -61,6 +57,8 @@ app.get('/api', async (req, res) => {
   }
   res.json(resp);
 });
+
+app.use(express.static('public'));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
