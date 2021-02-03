@@ -2,12 +2,80 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>modelfinder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>modelfinder</title>
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  width: 100%;
+  padding: 10px;
+  font-family: sans-serif;
+}
+
+h1 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+#container {
+
+}
+
+#url {
+  width: 100%;
+}
+
+#find {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#msg {
+  border: 1px solid black;
+  min-height: 20px;
+  padding: 5px;
+}
+</style>
 </head>
 <body>
-<div>
-<h1>modelfinder</h1>
-<input type="text" value="https://m-blix.github.io/ar-extension/tests/schema.html">
+<div id="container">
+  <h1>modelfinder</h1>
+  <input type="text" id="url" value="https://m-blix.github.io/ar-extension/tests/schema.html">
+  <input type="button" id="find" value="Find Models">
+
+  <div id="msg"></div>
 </div>
+
+<script>
+'use strict';
+
+const API_BASE = '/api';
+
+let urlField = document.getElementById('url');
+let find = document.getElementById('find');
+let msg = document.getElementById('msg');
+
+find.addEventListener('click', async function(e){
+  let url = urlField.value;
+  msg.innerText = '';
+  fetch(API_BASE+'?url='+url)
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      if (data.msg == 'model found') {
+        msg.innerText = 'Model found: ' + data.url;
+      } else { // model not found
+        msg.innerText = 'No model found on page.'
+      }
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+});
+</script>
 </body>
 </html>
