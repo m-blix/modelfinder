@@ -19,7 +19,7 @@ app.get('/api', async (req, res) => {
     const page = await browser.newPage();
     try {
       console.log('page: ' + url);
-      await page.goto(url);
+      await page.goto(url);//, { waitUntil: 'networkidle0' });
 
       let title = await page.title();
 
@@ -61,7 +61,7 @@ app.get('/api', async (req, res) => {
 app.use(express.static('public'));
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`modelfinder listening at http://localhost:${port}`);
 });
 
 function getModel() {
